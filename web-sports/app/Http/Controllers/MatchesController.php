@@ -18,7 +18,7 @@ class MatchesController extends Controller
 
 	function create(){
 		$matches = Matches::all();	
-		$teams = Team::all();	
+		$teams = Team::all('id','name');	
 		return view('matches.create')->with(['teams'=>$teams,'matches'=>$matches]);
 	}
 

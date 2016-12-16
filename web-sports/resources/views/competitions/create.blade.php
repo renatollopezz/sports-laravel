@@ -40,6 +40,12 @@
 			    @endforeach
 			    	</table>
 			    </div>	
+		<h3>Temporada</h3>
+			<select class="form-control" name="season_id" id="competition-season">
+				 @foreach($seasons as $season)
+					<option value="{{$season->id}}">{{$season->name}}</option>
+				 @endforeach
+			</select>
 				<input type="submit" value="Confirmar" class="btn btn-success btn-md">
 				<a href="{{route('competitions.index')}}" class="btn btn-primary btn-md">Voltar</a>	
 		</form>

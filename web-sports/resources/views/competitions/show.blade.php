@@ -14,6 +14,10 @@
 <h3>Data final:
 	<h4>{{$competition->final_date}}</h4>
 </h3>
+<h3>Times:</h3>
+@foreach($competition->teams as $team)
+	<p>{{$team->name}}</p>
+@endforeach
   <p><a class="btn btn-primary btn-lg" href="{{route('competitions.index')}}" role="button">Voltar</a></p>
 
 </div>

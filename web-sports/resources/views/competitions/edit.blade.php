@@ -21,9 +21,40 @@
 			      <input type="date" value="{{
 					date('d/m/Y',strtotime($competition->final_date))
 				      }}" name="final_date" class="form-control">
-			    </div>		
+			    </div>
+
+			<h3>Times participantes</h3>
+			    <div class="form-group">
+			    	<table class="table container">
+			    		<tbody>
+			    				<tr>
+			    					<td>Nome
+			    					<td></td>
+			    				</tr>
+			    		</tbody>
+			    
+			    @foreach($teams as $team)
+			    		<tr>
+			    			<td>{{$team->name}}</td>
+			    			@if(count($competition->teams->where('id',$team->id)) > 0)
+			    				<td><input  type="checkbox" value="{{$team->id}}" checked="true" name="check[]"></td>
+			    			@else
+			    			    <td><input  type="checkbox" value="{{$team->id}}"  name="check[]"></td>
+			    			 @endif
+			    		</tr>
+			    @endforeach
+			    	</table>
+			    </div>
+		<div class="form-group">
+			<h3>Temporada</h3>
+			<select class="form-control" name="season_id" id="competition-season">
+				 @foreach($seasons as $season)
+					<option value="{{$season->id}}">{{$season->name}}</option>
+				 @endforeach
+			</select>
+		</div>
 				<input type="submit" value="Confirmar" class="btn btn-success btn-md">
-				<a href="{{route('matches.index')}}" class="btn btn-primary btn-md">Voltar</a>
+				<a href="{{route('competitions.index')}}" class="btn btn-primary btn-md">Voltar</a>
 			</div>
 		</form>
 	</div>

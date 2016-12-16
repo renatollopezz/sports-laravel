@@ -12,6 +12,7 @@ use App\Competition;
 
 use App\Team;
 
+use App\Season;
 class CompetitionController extends Controller
 {
     
@@ -22,20 +23,15 @@ class CompetitionController extends Controller
     }
     public function create(){
         $teams= Team::all('id','name');
-    	return view('competitions.create')->withTeams($teams);
+        $seasons = Season::all('id','name');
+    	return view('competitions.create',compact(['teams','seasons']));
     }
 
     public function store(Request $Request){
     	$inputs = $Request->all();
         $object = Competition::create($inputs);
-        $collection = collect($object);
-        $value = $collection->get('id');
         $idTeams = $inputs['check'];
-    foreach ($idTeams as $t ) {   
-        DB::table('competition_team')->insert([
-            ['competition_id' => $value, 'team_id' => $t]
-        ]);
-    }
+        $object->teams()->sync($idTeams);
     	return redirect()->route('competitions.index');
     }
 
@@ -47,14 +43,18 @@ class CompetitionController extends Controller
 
     public function edit($id){
         $competition = Competition::findOrFail($id);
-        return view('competitions.edit')->withCompetition($competition);    
+        $teams = Team::all('id','name');
+        $seasons = Season::all('id','name');
+        return view('competitions.edit')->with(['competition'=>$competition,'teams'=>$teams,'seasons'=>$seasons12]);
     }
 
     public function update($id,Request $Request){
         $inputs = $Request->all();
+       
         $competition = Competition::findOrFail($id);
-        $competition->fill($inputs)->save();
-
+        $object = $competition->fill($inputs)->save();
+        $idTeams = $inputs['check'];
+        $object->teams()->detach($idTeams);
         return redirect()->route('competitions.index');
     }
 
@@ -65,6 +65,7 @@ class CompetitionController extends Controller
 
     public function destroy($id){
         $competition = Competition::findOrFail($id);
+        $competition->teams()->detach();
         $competition->delete();
         return redirect()->route('competitions.index');
     }

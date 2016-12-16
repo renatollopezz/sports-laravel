@@ -27,3 +27,12 @@ Route::resource('matches','MatchesController');
   //router Competition
 Route::resource('competitions','CompetitionController');
 Route::get('competitions/delete/{id}','CompetitionController@delete');
+
+//router Season
+Route::resource('seasons','SeasonsController');
+Route::get('seasons/delete/{id}','SeasonsController@delete');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
