@@ -10,6 +10,11 @@ use App\Team;
 
 class MatchesController extends Controller
 {
+	    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+	
     function index(){
 		//buscar dados
 		$matches = Matches::all();

@@ -15,6 +15,10 @@ use App\Team;
 use App\Season;
 class CompetitionController extends Controller
 {
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index(){
       	$competitions = Competition::all();

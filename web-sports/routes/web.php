@@ -9,7 +9,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('dashboard');
 });
 Route::get('/sobre', function () {
@@ -35,4 +35,4 @@ Route::get('seasons/delete/{id}','SeasonsController@delete');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
